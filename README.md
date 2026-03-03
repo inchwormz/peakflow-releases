@@ -2,7 +2,7 @@
 
 **6 productivity tools Mac has had for years. Now on Windows.**
 
-[Download](https://github.com/inchwormz/peakflow-releases/releases/latest) · [Website](https://www.getpeakflow.pro) · [Blog](https://www.getpeakflow.pro/blog/)
+[Download](https://github.com/inchwormz/peakflow-releases/releases/latest) · [Website](https://www.getpeakflow.pro) · [Source Code](https://github.com/inchwormz/peakflow-electron) · [Blog](https://www.getpeakflow.pro/blog/)
 
 ---
 
@@ -33,5 +33,6 @@
 ## Links
 
 - Website: [getpeakflow.pro](https://www.getpeakflow.pro)
+- Source code: [peakflow-electron](https://github.com/inchwormz/peakflow-electron) (GPL v3)
 - Support: contact@getpeakflow.pro
 - Feature requests & bugs: [Issues](https://github.com/inchwormz/peakflow-releases/issues)
