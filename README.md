@@ -1,6 +1,6 @@
 # PeakFlow
 
-**6 productivity tools Mac has had for years. Now on Windows.**
+**Mac-level productivity tools for Windows. Seven tools that run from the system tray.**
 
 [Download](https://github.com/inchwormz/peakflow-releases/releases/latest) · [Website](https://www.getpeakflow.pro) · [Source Code](https://github.com/inchwormz/peakflow-electron) · [Blog](https://www.getpeakflow.pro/blog/)
 
@@ -27,8 +27,11 @@
 
 ## Pricing
 
-- **$6.99/month** — all 6 tools, cancel anytime
-- **Per-tool perpetual licenses** available at [getpeakflow.pro](https://www.getpeakflow.pro/#pricing)
+- **$6.99/month** — all tools, cancel anytime
+- **$9.99** — one tool, yours forever (v1)
+- **$49.99** — all tools, yours forever (v1)
+
+Purchase at [getpeakflow.pro](https://www.getpeakflow.pro/#pricing).
 
 ## Links
 
