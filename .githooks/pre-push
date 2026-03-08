@@ -1,0 +1,20 @@
+#!/bin/sh
+
+origin_url="$(git remote get-url origin 2>/dev/null)"
+
+case "$origin_url" in
+  *github.com:inchwormz/peakflow-releases.git|*github.com/inchwormz/peakflow-releases.git) ;;
+  *)
+    echo "ERROR: origin is not the peakflow-releases repo."
+    echo "Current origin: $origin_url"
+    exit 1
+    ;;
+esac
+
+if [ "$ALLOW_RELEASE_PUSH" != "1" ]; then
+  echo "ERROR: release pushes are blocked by default in this repo."
+  echo "Set ALLOW_RELEASE_PUSH=1 for an intentional release push."
+  exit 1
+fi
+
+exit 0
