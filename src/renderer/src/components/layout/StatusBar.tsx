@@ -56,11 +56,11 @@ export function StatusBar(): React.JSX.Element {
   return (
     <div
       onClick={!isLicensed ? handleClick : undefined}
-      className="flex items-center px-3 shrink-0 select-none transition-colors duration-200"
+      className="flex items-center justify-between px-4 shrink-0 select-none transition-colors duration-200"
       style={{
-        height: '24px',
+        height: '30px',
         background: 'var(--bg-surface)',
-        borderTop: '1px solid var(--border-dim)',
+        borderTop: '1px solid var(--border-surface)',
         cursor: !isLicensed ? 'pointer' : 'default'
       }}
       role={!isLicensed ? 'button' : undefined}
