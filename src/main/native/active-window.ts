@@ -9,9 +9,15 @@ import koffi from 'koffi'
 
 // ─── Win32 types and bindings ────────────────────────────────────────────────
 
-const user32 = koffi.load('user32.dll')
-const dwmapi = koffi.load('dwmapi.dll')
-const kernel32 = koffi.load('kernel32.dll')
+// The renderer can be previewed on Linux, while FocusDim itself targets Windows.
+// Keep the module import-safe off Windows so the rest of the app can boot.
+const isWindows = process.platform === 'win32'
+const unavailableBinding = (..._args: unknown[]): null => null
+const unavailableLibrary = { func: (..._args: unknown[]) => unavailableBinding }
+
+const user32 = isWindows ? koffi.load('user32.dll') : unavailableLibrary
+const dwmapi = isWindows ? koffi.load('dwmapi.dll') : unavailableLibrary
+const kernel32 = isWindows ? koffi.load('kernel32.dll') : unavailableLibrary
 
 // RECT struct: { left, top, right, bottom } — all int32
 const RECT = koffi.struct('RECT', {

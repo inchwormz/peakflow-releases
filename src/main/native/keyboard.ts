@@ -8,7 +8,11 @@ import koffi from 'koffi'
 
 // ─── Win32 types and bindings ────────────────────────────────────────────────
 
-const user32 = koffi.load('user32.dll')
+// Clipboard simulation is Windows-only, but this module is imported by the
+// shared clipboard service during Linux/macOS previews.
+const user32 = process.platform === 'win32'
+  ? koffi.load('user32.dll')
+  : { func: (..._args: unknown[]) => (..._bindingArgs: unknown[]) => 0 }
 
 // INPUT struct for SendInput — keyboard variant
 // INPUT_KEYBOARD = 1
