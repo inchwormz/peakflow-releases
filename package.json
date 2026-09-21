@@ -6,7 +6,7 @@
   "author": "PeakFlow",
   "homepage": "https://getpeakflow.pro",
   "scripts": {
-    "dev": "electron-vite dev",
+    "dev": "node scripts/dev.mjs",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "postinstall": "electron-builder install-app-deps",
