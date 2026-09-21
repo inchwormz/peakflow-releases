@@ -34,13 +34,13 @@ export function TitleBar({
 
   const buttonBaseStyle: CSSProperties = {
     background: 'transparent',
-    color: '#666666',
+    color: 'var(--text-muted)',
     border: 'none',
     outline: 'none',
     cursor: 'pointer',
-    width: 32,
+    width: 42,
     height: 32,
-    borderRadius: '50%',
+    borderRadius: 0,
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,8 +53,8 @@ export function TitleBar({
       style={
         {
           WebkitAppRegion: 'drag',
-          background: 'var(--bg-app)',
-          borderBottom: '1px solid #1a1a1a',
+          background: 'var(--bg-surface)',
+          borderBottom: '1px solid var(--border-surface)',
           fontFamily: "'Be Vietnam Pro', 'Segoe UI', sans-serif"
         } as DragStyle
       }
@@ -63,11 +63,11 @@ export function TitleBar({
       <span
         className="pl-3 truncate"
         style={{
-          color: '#666666',
+          color: 'var(--text-muted)',
           fontSize: 11,
-          fontWeight: 400,
-          letterSpacing: '0.5px',
-          fontFamily: "'Silkscreen', cursive"
+          fontWeight: 500,
+          letterSpacing: '0.2px',
+          fontFamily: "'Be Vietnam Pro', 'Segoe UI', sans-serif"
         }}
       >
         {title}

@@ -187,109 +187,167 @@ export function Dashboard(): React.JSX.Element {
 
   const daysRemaining = trialStatus?.daysRemaining ?? 14
   const isLicensed = trialStatus?.isLicensed === true
-  const trialLabel = isLicensed ? 'Pro suite active' : `${daysRemaining} days left in trial`
+  const trialLabel = isLicensed ? 'Pro suite active' : `${daysRemaining} days left`
+  const trialProgress = isLicensed ? 100 : Math.min(100, Math.max(8, (daysRemaining / 14) * 100))
 
   return (
     <>
-      <TitleBar title="" showMaximize={false} />
+      <TitleBar title="PeakFlow" showMaximize />
       <main className="dashboard-page">
-        <header className="dashboard-header">
-          <div className="dashboard-brand-row">
-            <div className="dashboard-brand">
-              <img src={peakflowLogo} alt="PeakFlow" className="dashboard-logo" />
-              <span>PRODUCTIVITY OS</span>
+        <aside className="app-sidebar">
+          <div>
+            <div className="sidebar-brand">
+              <img src={peakflowLogo} alt="PeakFlow" className="sidebar-logo" />
+              <div>
+                <strong>PEAKFLOW</strong>
+                <span>DESKTOP SUITE</span>
+              </div>
+            </div>
+
+            <div className="sidebar-section-label">WORKSPACE</div>
+            <nav className="sidebar-nav" aria-label="Workspace sections">
+              <div className="sidebar-nav-item is-active">
+                <span className="sidebar-nav-icon" aria-hidden="true"><GridIcon /></span>
+                <span>All tools</span>
+                <span className="sidebar-nav-count">06</span>
+              </div>
+            </nav>
+
+            <div className="sidebar-section-label sidebar-section-label-spaced">CATEGORIES</div>
+            <div className="sidebar-categories" aria-label="Tool categories">
+              <div><span className="category-mark category-mark-focus" />Focus<span>02</span></div>
+              <div><span className="category-mark category-mark-meetings" />Meetings<span>02</span></div>
+              <div><span className="category-mark category-mark-capture" />Capture<span>01</span></div>
+              <div><span className="category-mark category-mark-audio" />Audio<span>01</span></div>
+            </div>
+          </div>
+
+          <div className="sidebar-bottom">
+            <div className="sidebar-license">
+              <div className="sidebar-license-heading">
+                <span>ACCESS</span>
+                <span className="access-dot" aria-hidden="true" />
+              </div>
+              <strong>{trialLabel}</strong>
+              <p>{isLicensed ? 'All tools are unlocked.' : 'Trial access is active.'}</p>
+              {!isLicensed && (
+                <button type="button" onClick={() => licenseInputRef.current?.focus()}>
+                  Activate license <span aria-hidden="true">→</span>
+                </button>
+              )}
             </div>
             <button
               className={`share-button${showShare ? ' is-active' : ''}`}
               onClick={() => setShowShare(!showShare)}
               type="button"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 00-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM20 19H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 12 7.4l3.38 4.6L17 10.83 14.92 8H20v6z" />
-              </svg>
+              <ShareIcon />
               Share &amp; Earn
             </button>
+            <div className="sidebar-version">PeakFlow for Windows</div>
           </div>
+        </aside>
 
-          <div className="dashboard-hero">
-            <div className="hero-copy">
-              <span className="eyebrow">YOUR WORKDAY, IN FLOW</span>
-              <h1>Make room for <em>deep work.</em></h1>
-              <p>Six focused utilities for the small moments that interrupt your best work.</p>
+        <section className="dashboard-workspace">
+          <header className="workspace-toolbar">
+            <div className="breadcrumb">
+              <span>Workspace</span>
+              <span className="breadcrumb-divider">/</span>
+              <strong>All tools</strong>
             </div>
-            <div className="trial-card" aria-label={trialLabel}>
-              <span className="trial-dot" aria-hidden="true" />
-              <div>
-                <strong>{trialLabel}</strong>
-                <span>{isLicensed ? 'Every tool is unlocked' : 'Start with any tool below'}</span>
+            <div className="workspace-toolbar-meta">
+              <span className="ready-indicator"><span aria-hidden="true" />Ready</span>
+              <span className="toolbar-divider" />
+              <span>06 utilities</span>
+            </div>
+          </header>
+
+          <div className="workspace-scroll">
+            <section className="dashboard-intro" aria-labelledby="dashboard-heading">
+              <div className="intro-copy">
+                <span className="eyebrow">FOCUS SUITE / OVERVIEW</span>
+                <h1 id="dashboard-heading">Clear the noise.<br /><span>Get to work.</span></h1>
+                <p>Small utilities for the moments that interrupt your best work.</p>
               </div>
-            </div>
-          </div>
-        </header>
+              <div className="overview-panel" aria-label={`${trialLabel}. ${TOOLS.length} utilities available.`}>
+                <div className="overview-panel-topline">
+                  <span>TRIAL ACCESS</span>
+                  <span className="overview-status">{isLicensed ? 'PRO' : 'ACTIVE'}</span>
+                </div>
+                <div className="overview-days">
+                  <strong>{isLicensed ? '∞' : daysRemaining}</strong>
+                  <span>{isLicensed ? 'full suite unlocked' : 'days remaining'}</span>
+                </div>
+                <div className="overview-progress" aria-hidden="true"><span style={{ width: `${trialProgress}%` }} /></div>
+                <p>{isLicensed ? 'Every PeakFlow tool is ready.' : 'Start with any tool below.'}</p>
+              </div>
+            </section>
 
-        <section className="suite-section" aria-labelledby="suite-heading">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">THE SUITE</span>
-              <h2 id="suite-heading">Choose your focus</h2>
-            </div>
-            <span className="tool-count">06 TOOLS</span>
-          </div>
+            <section className="tool-section" aria-labelledby="tools-heading">
+              <div className="section-heading">
+                <div>
+                  <span className="eyebrow">PRODUCTIVITY TOOLS</span>
+                  <h2 id="tools-heading">All tools</h2>
+                </div>
+                <span className="tool-count">{TOOLS.length} AVAILABLE</span>
+              </div>
 
-          <div className="tool-grid">
-            {TOOLS.map((tool) => (
-              <ToolCard
-                key={tool.id}
-                tool={tool}
-                trialStatus={trialStatus}
-                toolAccess={toolAccess[tool.id]}
-                onClick={() => openTool(tool.id)}
-                onInstall={() => installAndOpen(tool.id)}
-              />
-            ))}
+              <div className="tool-grid">
+                {TOOLS.map((tool) => (
+                  <ToolCard
+                    key={tool.id}
+                    tool={tool}
+                    trialStatus={trialStatus}
+                    toolAccess={toolAccess[tool.id]}
+                    onClick={() => openTool(tool.id)}
+                    onInstall={() => installAndOpen(tool.id)}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {showShare && (
+              <div className="share-panel">
+                <ShareAndEarn
+                  ownedTools={Object.entries(toolAccess)
+                    .filter(([, value]) => value.isToolLicensed)
+                    .map(([id]) => id as ToolId)}
+                />
+              </div>
+            )}
+
+            {trialStatus && !trialStatus.isLicensed && (
+              <section className="license-panel" aria-labelledby="license-heading">
+                <div className="license-copy">
+                  <span className="eyebrow">LICENSE MANAGEMENT</span>
+                  <h2 id="license-heading">Activate PeakFlow</h2>
+                  <p>Enter your license key to unlock the full desktop suite.</p>
+                </div>
+                <form onSubmit={handleActivate} className="license-form">
+                  <label className="sr-only" htmlFor="license-key">License key</label>
+                  <input
+                    ref={licenseInputRef}
+                    id="license-key"
+                    type="text"
+                    value={licenseKey}
+                    onChange={(event) => setLicenseKey(event.target.value)}
+                    placeholder="Paste license key"
+                    disabled={licenseStatus.type === 'loading' || licenseStatus.type === 'success'}
+                  />
+                  <button
+                    type="submit"
+                    disabled={licenseStatus.type === 'loading' || licenseStatus.type === 'success'}
+                  >
+                    {licenseStatus.type === 'loading' ? 'Checking' : 'Activate'}
+                  </button>
+                </form>
+                {licenseStatus.type !== 'idle' && licenseStatus.type !== 'loading' && (
+                  <p className={`license-message is-${licenseStatus.type}`}>{licenseStatus.message}</p>
+                )}
+              </section>
+            )}
           </div>
         </section>
-
-        {showShare && (
-          <div className="share-panel">
-            <ShareAndEarn
-              ownedTools={Object.entries(toolAccess)
-                .filter(([, value]) => value.isToolLicensed)
-                .map(([id]) => id as ToolId)}
-            />
-          </div>
-        )}
-
-        {trialStatus && !trialStatus.isLicensed && (
-          <section className="license-panel" aria-labelledby="license-heading">
-            <div className="license-copy">
-              <span className="eyebrow">UNLOCK THE FULL SUITE</span>
-              <h2 id="license-heading">Already have a key?</h2>
-              <p>Activate it once and keep every tool ready when you need it.</p>
-            </div>
-            <form onSubmit={handleActivate} className="license-form">
-              <label className="sr-only" htmlFor="license-key">License key</label>
-              <input
-                ref={licenseInputRef}
-                id="license-key"
-                type="text"
-                value={licenseKey}
-                onChange={(event) => setLicenseKey(event.target.value)}
-                placeholder="Paste your license key"
-                disabled={licenseStatus.type === 'loading' || licenseStatus.type === 'success'}
-              />
-              <button
-                type="submit"
-                disabled={licenseStatus.type === 'loading' || licenseStatus.type === 'success'}
-              >
-                {licenseStatus.type === 'loading' ? 'Checking' : 'Activate'}
-              </button>
-            </form>
-            {licenseStatus.type !== 'idle' && licenseStatus.type !== 'loading' && (
-              <p className={`license-message is-${licenseStatus.type}`}>{licenseStatus.message}</p>
-            )}
-          </section>
-        )}
       </main>
       <StatusBar />
     </>
@@ -319,7 +377,7 @@ function ToolCard({
       ? `${daysRemaining}D TRIAL`
       : installed && !isToolAllowed
         ? 'LOCKED'
-        : ''
+        : 'AVAILABLE'
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>): void => {
     if (installed && (event.key === 'Enter' || event.key === ' ')) {
@@ -338,11 +396,11 @@ function ToolCard({
     >
       <div className="tool-card-topline">
         <span className="tool-icon" aria-hidden="true">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
             {tool.icon.map((path, index) => <path key={index} d={path} />)}
           </svg>
         </span>
-        {badgeLabel && <span className="tool-badge">{badgeLabel}</span>}
+        <span className={`tool-badge${toolLicensed ? ' is-pro' : ''}`}>{badgeLabel}</span>
       </div>
       <div className="tool-card-copy">
         <span className="tool-category">{tool.category}</span>
@@ -354,10 +412,32 @@ function ToolCard({
           <span>Open tool <span aria-hidden="true">↗</span></span>
         ) : (
           <button type="button" onClick={(event) => { event.stopPropagation(); onInstall() }}>
-            Try free <span aria-hidden="true">→</span>
+            Install &amp; open <span aria-hidden="true">→</span>
           </button>
         )}
       </div>
     </article>
+  )
+}
+
+function GridIcon(): React.JSX.Element {
+  return (
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="5" height="5" rx=".5" />
+      <rect x="9.5" y="1.5" width="5" height="5" rx=".5" />
+      <rect x="1.5" y="9.5" width="5" height="5" rx=".5" />
+      <rect x="9.5" y="9.5" width="5" height="5" rx=".5" />
+    </svg>
+  )
+}
+
+function ShareIcon(): React.JSX.Element {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="18" cy="5" r="2.5" />
+      <circle cx="6" cy="12" r="2.5" />
+      <circle cx="18" cy="19" r="2.5" />
+      <path d="m8.2 10.8 7.6-4.5M8.2 13.2l7.6 4.5" />
+    </svg>
   )
 }
