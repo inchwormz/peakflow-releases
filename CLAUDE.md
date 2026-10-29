@@ -16,3 +16,9 @@
 - Build and test in the private dev repo first.
 - Move code here only when you intend to release it.
 - Treat pushes here as release actions, not backup actions.
+
+## Shared agent rules
+
+Read AGENTS.md too; it holds the copy rule for this repo.
+
+@AGENTS.md
